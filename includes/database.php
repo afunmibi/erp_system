@@ -394,8 +394,27 @@ function generateCode($prefix, $id, $length = 6) {
     return $prefix . str_pad($id, $length, '0', STR_PAD_LEFT);
 }
 
+function getCurrencySymbol() {
+    static $symbol = null;
+    if ($symbol !== null) {
+        return $symbol;
+    }
+
+    $symbol = '₦';
+    try {
+        $row = fetchOne("SELECT setting_value FROM system_settings WHERE setting_key = 'currency_symbol' LIMIT 1");
+        if (!empty($row['setting_value'])) {
+            $symbol = $row['setting_value'];
+        }
+    } catch (Exception $e) {
+        // Fallback to default if settings table not available yet
+    }
+
+    return $symbol;
+}
+
 function formatCurrency($amount) {
-    return '₱' . number_format($amount, 2);
+    return getCurrencySymbol() . number_format($amount, 2);
 }
 
 function formatDate($date) {

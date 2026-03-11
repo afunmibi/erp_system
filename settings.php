@@ -80,7 +80,7 @@ foreach ($db_settings as $s) {
                         <div class="mb-3">
                             <label class="form-label">Currency Symbol</label>
                             <input type="text" name="settings[currency_symbol]" class="form-control" 
-                                value="<?php echo sanitize($settings['currency_symbol'] ?? '₱'); ?>">
+                                value="<?php echo sanitize($settings['currency_symbol'] ?? '₦'); ?>">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Tax Rate (%)</label>
